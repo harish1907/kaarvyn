@@ -11,9 +11,9 @@ npm run dev
 
 ## Before going live
 
-1. **Real photos — this is the most important one.** Every photo on the site right now is a free Pexels stock photo standing in for your actual work (almirahs, beds, sofas, wardrobes, gates, the workshop shot) — none of it is really Kaarvyn's. Stock photos are fine for a first preview, but replace them with real project photography before telling customers this is your work. Same filenames, so swapping is a straight drop-in:
+1. **Real photos — this is the most important one.** Every photo on the site right now is a free Pexels stock photo standing in for your actual work (almirahs, beds, sofas, wardrobes, gates, ceilings, doors, the workshop shot) — none of it is really Kaarvyn's. Stock photos are fine for a first preview, but replace them with real project photography before telling customers this is your work. Same filenames, so swapping is a straight drop-in:
    - `src/assets/gallery/almirah/1.jpg 2.jpg 3.jpg`
-   - `src/assets/gallery/bed/...`, `sofa/...`, `wardrobe/...`, `gate/...`
+   - `src/assets/gallery/bed/...`, `sofa/...`, `wardrobe/...`, `gate/...`, `ceiling/...`, `door/...`
    - `src/assets/hero/photo.jpg` — main cinematic hero shot
    - `src/assets/about/workshop.jpg` — workshop/craftsman photo
    The current stock photos are from Pexels (free for commercial use, no attribution required — [license](https://www.pexels.com/license/)), picked to have no visible third-party logos, brand names, or signage. Titles/captions for each gallery photo are in `src/data/gallery.js` — update them to match once you swap in real shots.

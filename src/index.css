@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Jost", "Helvetica Neue", sans-serif;
+
+  --color-ink: #0b0705;
+  --color-ink-2: #180f08;
+  --color-ink-3: #241708;
+  --color-cream: #f6ecd8;
+  --color-cream-dim: #c9bc9c;
+  --color-gold: #caa046;
+  --color-gold-light: #f4d789;
+  --color-gold-deep: #7c5a1f;
+  --color-emerald: #1f3d2e;
+  --color-emerald-light: #4c7a5e;
+}
+
+/* Light theme: same semantic tokens, different values. The cinematic hero
+   section pins its own dark values inline (see Hero.jsx) so it stays moody
+   in both themes — only the rest of the page re-themes. */
+:root[data-theme="light"] {
+  --color-ink: #f7f1e4;
+  --color-ink-2: #efe4c9;
+  --color-ink-3: #e3d3a8;
+  --color-cream: #241a0d;
+  --color-cream-dim: #5c4d37;
+  --color-gold: #9c7222;
+  --color-gold-light: #b98d31;
+  --color-gold-deep: #6b4d15;
+  --color-emerald: #1f3d2e;
+  --color-emerald-light: #2c5843;
+}
+
+html {
+  background: var(--color-ink);
+  scroll-behavior: auto;
+  transition: background-color 0.5s ease;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -10%, color-mix(in srgb, var(--color-gold) 14%, transparent), transparent),
+    radial-gradient(ellipse 70% 50% at 100% 20%, color-mix(in srgb, var(--color-emerald) 22%, transparent), transparent),
+    var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+:root[data-theme="light"] body {
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -10%, color-mix(in srgb, var(--color-gold) 10%, transparent), transparent),
+    radial-gradient(ellipse 70% 50% at 100% 20%, color-mix(in srgb, var(--color-emerald) 8%, transparent), transparent),
+    var(--color-ink);
+}
+
+:root[data-theme="light"] .grain-overlay {
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+}
+
+.perspective {
+  perspective: 1400px;
+}
+
+.glow-gold {
+  box-shadow: 0 20px 60px -20px color-mix(in srgb, var(--color-gold) 45%, transparent);
+}
+
+/* "Mica" gloss finish for primary buttons — a laminate-sheet gradient with a
+   light sweep across it on hover, echoing the mica/laminate product line. */
+.btn-mica {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--color-gold-light) 0%,
+    var(--color-gold) 55%,
+    var(--color-gold-deep) 100%
+  );
+}
+.btn-mica::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: -75%;
+  width: 50%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-mica:hover::after {
+  left: 125%;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* film-grain overlay, fixed to viewport, sits above everything but ignores pointer events */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.font-serif-display {
+  font-family: var(--font-serif);
+}
+
+/* thin gold rule used as a section accent */
+.rule-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+/* magnetic + hover-distort image */
+.distort-img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, filter;
+}
+.distort-wrap:hover .distort-img {
+  transform: scale(1.08) skewX(-1.5deg);
+  filter: saturate(1.12) contrast(1.05) brightness(1.03);
+}
+
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Swiper pagination, recolored to match the gold accent */
+.testimonial-swiper .swiper-pagination-bullet {
+  background: var(--color-gold-deep);
+  opacity: 0.5;
+  width: 7px;
+  height: 7px;
+}
+.testimonial-swiper .swiper-pagination-bullet-active {
+  background: var(--color-gold);
+  opacity: 1;
+}
