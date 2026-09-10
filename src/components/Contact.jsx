@@ -42,8 +42,8 @@ export default function Contact() {
           />
           <p className="mt-8 text-cream-dim max-w-md leading-relaxed">
             Share your room dimensions, references or a rough idea and we'll get
-            back with a design and a quote. Site visits available across Delhi NCR
-            and neighbouring areas.
+            back with a design and a quote. In-person site visits across Delhi
+            NCR — custom orders designed, built and shipped pan-India.
           </p>
 
           <div className="mt-10 space-y-5">

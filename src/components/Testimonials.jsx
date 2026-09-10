@@ -1,8 +1,7 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+import { lazy, Suspense } from "react";
 import SectionHeading from "./SectionHeading";
+
+const TestimonialsCarousel = lazy(() => import("./TestimonialsCarousel"));
 
 const QUOTES = [
   {
@@ -43,38 +42,34 @@ const QUOTES = [
   },
 ];
 
+// Static fallback shown while the Swiper chunk loads (or if it fails to) —
+// keeps the quote text present immediately rather than behind a spinner.
+function StaticFallback() {
+  return (
+    <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {QUOTES.slice(0, 3).map((q) => (
+        <div key={q.name} className="border border-gold/15 p-8">
+          <p className="text-gold text-2xl font-serif-display leading-none">&ldquo;</p>
+          <p className="mt-2 text-cream-dim leading-relaxed">{q.quote}</p>
+          <p className="mt-6 text-sm uppercase tracking-[0.12em] text-cream">{q.name}</p>
+          <p className="text-xs uppercase tracking-[0.12em] text-emerald-light mt-1">
+            {q.location}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Testimonials() {
   return (
     <section className="bg-ink-2 py-28 sm:py-36 testimonial-swiper">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <SectionHeading kicker="Client Words" title="Furniture people keep for decades." align="center" />
 
-        <Swiper
-          modules={[Autoplay, Pagination]}
-          spaceBetween={24}
-          slidesPerView={1}
-          loop
-          autoplay={{ delay: 4500, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
-          breakpoints={{
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-          }}
-          className="mt-16 pb-14"
-        >
-          {QUOTES.map((q) => (
-            <SwiperSlide key={q.name}>
-              <div className="h-full border border-gold/15 p-8 transition-all duration-500 hover:-translate-y-2 hover:border-gold/40 hover:shadow-[0_25px_50px_-25px_rgba(202,160,70,0.4)]">
-                <p className="text-gold text-2xl font-serif-display leading-none">&ldquo;</p>
-                <p className="mt-2 text-cream-dim leading-relaxed">{q.quote}</p>
-                <p className="mt-6 text-sm uppercase tracking-[0.12em] text-cream">{q.name}</p>
-                <p className="text-xs uppercase tracking-[0.12em] text-emerald-light mt-1">
-                  {q.location}
-                </p>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <Suspense fallback={<StaticFallback />}>
+          <TestimonialsCarousel quotes={QUOTES} />
+        </Suspense>
       </div>
     </section>
   );

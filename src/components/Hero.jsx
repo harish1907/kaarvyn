@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -60,19 +60,23 @@ export default function Hero() {
     return () => ctx.revert();
   }, []);
 
-  const splitLine = (text, i) => (
-    <span
-      key={text}
-      ref={(el) => (lineRefs.current[i] = el)}
-      className="block overflow-hidden"
-    >
-      {text.split(" ").map((word, wi) => (
-        <span key={wi} className="inline-block mr-[0.3em]">
-          {word}
-        </span>
-      ))}
-    </span>
-  );
+  const splitLine = (text, i) => {
+    const words = text.split(" ");
+    return (
+      <span
+        key={text}
+        ref={(el) => (lineRefs.current[i] = el)}
+        className="block overflow-hidden"
+      >
+        {words.map((word, wi) => (
+          <Fragment key={wi}>
+            <span className="inline-block">{word}</span>
+            {wi < words.length - 1 ? " " : null}
+          </Fragment>
+        ))}
+      </span>
+    );
+  };
 
   return (
     <section
@@ -96,11 +100,12 @@ export default function Hero() {
         className="relative z-10 h-full flex flex-col justify-end px-6 sm:px-10 pb-20 sm:pb-28 max-w-7xl mx-auto"
       >
         <p className="hero-fade opacity-0 mb-5 text-xs sm:text-sm tracking-[0.4em] uppercase text-gold">
-          Custom Woodcraft &middot; Est. Handmade
+          Best Budget-Friendly Rates &middot; Pan-India
         </p>
 
         <h1 className="font-serif-display text-cream text-[13vw] sm:text-7xl md:text-8xl leading-[0.95] tracking-tight">
           {splitLine("Furniture built", 0)}
+          {" "}
           {splitLine("to be lived with.", 1)}
         </h1>
 

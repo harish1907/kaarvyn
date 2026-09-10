@@ -27,7 +27,7 @@ export default function About() {
           >
             <img
               src={workshopImg}
-              alt="Kaarvyn Woodcraft workshop"
+              alt="Craftsman at Kaarvyn Woodcraft's carpentry workshop, hand-finishing custom furniture"
               className="distort-img w-full h-[420px] sm:h-[560px] object-cover"
             />
             <motion.div

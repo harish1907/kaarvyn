@@ -6,6 +6,7 @@ export const site = {
   phoneDisplay: "+91 70531 18068",
   email: "harish.developer19@gmail.com",
   location: "Delhi, India",
+  serviceArea: "Pan-India",
   instagram: "https://instagram.com/kaarvynwoodcraft",
   referralCommission: "8–10%",
 };

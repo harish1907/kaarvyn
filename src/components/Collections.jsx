@@ -20,6 +20,7 @@ export default function Collections() {
             <button
               key={c.key}
               onClick={() => setActive(c.key)}
+              aria-pressed={active === c.key}
               className={`px-5 py-2.5 text-xs sm:text-sm uppercase tracking-[0.15em] border transition-colors duration-300 ${
                 active === c.key
                   ? "btn-mica border-gold text-ink"
@@ -35,7 +36,27 @@ export default function Collections() {
 
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {current.items.map((item, i) => (
-            <GalleryCard key={item.title} {...item} tall={i === 1} />
+            <GalleryCard key={item.title} {...item} category={current.title} tall={i === 1} />
+          ))}
+        </div>
+
+        {/* Only the active tab's cards are visually shown at a time — this
+            block keeps every category's items readable to screen readers and
+            search engines (which don't click tabs) without duplicating the
+            animated gallery above. */}
+        <div className="sr-only">
+          {collections.map((c) => (
+            <div key={c.key}>
+              <h3>{c.title}</h3>
+              <p>{c.tagline}</p>
+              <ul>
+                {c.items.map((item) => (
+                  <li key={item.title}>
+                    {item.title} — {item.note}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       </div>

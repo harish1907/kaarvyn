@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import useScrollReveal from "../hooks/useScrollReveal";
 import useTilt from "../hooks/useTilt";
 
-export default function GalleryCard({ img, title, note, tall = false }) {
+export default function GalleryCard({ img, title, note, category, tall = false }) {
   const ref = useScrollReveal({ y: 48, rotateX: 12 });
   const tilt = useTilt({ max: 8 });
 
@@ -18,7 +18,7 @@ export default function GalleryCard({ img, title, note, tall = false }) {
       >
         <img
           src={img}
-          alt={title}
+          alt={`${title} — ${note}${category ? `, custom ${category.toLowerCase()} by Kaarvyn Woodcraft` : ""}`}
           loading="lazy"
           className="distort-img absolute inset-0 w-full h-full object-cover"
           style={{ transform: "translateZ(0)" }}

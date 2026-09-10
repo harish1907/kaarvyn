@@ -9,7 +9,7 @@ export default function Footer() {
             KAARVYN <span className="text-gold">WOODCRAFT</span>
           </p>
           <p className="mt-3 text-sm text-cream-dim max-w-xs">
-            Bespoke almirahs, beds, sofas, wardrobes, gates, ceilings and doors in mica, marble-look or wood finishes, handcrafted to order in {site.location}.
+            Bespoke almirahs, beds, sofas, wardrobes, gates, ceilings and doors in mica, marble-look or wood finishes. Based in {site.location}, orders taken {site.serviceArea}.
           </p>
         </div>
 
